@@ -1,3 +1,6 @@
+# EM PYTHON A IDENTAÇÂO É IMPORTANTE, POIS DELIMITA O FIM DE UMA FUNÇÂO
+# NO CASO DOS IFs por exemplo
+
 MAIOR_IDADE = 18
 
 idade = int(input("Infome sua idade: "))
