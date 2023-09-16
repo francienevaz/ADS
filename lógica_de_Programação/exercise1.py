@@ -10,3 +10,7 @@ if ladoI and ladoII and ladoIII > 0:
             print ("\nDois dos lados são iguais, logo o triâgulo é um Isósceles.")
         elif ladoI != ladoII != ladoIII:
             print('\nTodos os lados são diferentes, logo o triângulo é Escaleno.')
+    else :
+        print('Um dos valores não serve para formar um triângulo, tente novamente!')
+else :
+    print('Um dos valores não serve para formar um triângulo, tente novamente!')
