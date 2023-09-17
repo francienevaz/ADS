@@ -9,9 +9,9 @@ if tipo_instalacao == 1:
         taxa_residencia = 0.65
     print('\nA sua tarifa é R${:.2f}'.format((taxa_residencia * kwh)))
 elif tipo_instalacao == 2:
-    if kwh <= 100:
+    if kwh <= 1000:
         taxa_comercial = 0.55
-    elif kwh > 100:
+    elif kwh > 1000:
         taxa_comercial = 0.60
     print ('\nA sua tarifa é R${:.2f}'.format ((taxa_comercial* kwh)))
 elif tipo_instalacao == 3:
@@ -20,3 +20,5 @@ elif tipo_instalacao == 3:
     elif kwh > 5000:
         taxa_industrial = 0.60
     print ('A sua tarifa é R${:.2f}'.format (taxa_industrial * kwh))
+else:
+    print("Opção inválida")
