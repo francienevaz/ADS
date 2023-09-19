@@ -1,5 +1,10 @@
-x = 0
+start = int(input("Digite um valor inicial: "))
+end = int(input("Digite um valor final: "))
 
-while x < 10 :
-    x += 2
-    print(x)
+x = start
+
+while x <= end :
+    if (x %2 == 0):
+        print(x)
+    x = x + 1
+
