@@ -1,0 +1,76 @@
+comandos:
+
+whoami - retorna o nome do usuário
+sudo su - transforma-o em root
+-----------------------------------
+CTRL + L = clear no terminal linux
+-----------------------------------
+touch
+
+- Muda a data e a hora que um arquivo foi criado;
+- Também pode ser usado para criar um arquivo vazio;
+Sintaxe: touch [opções] [arquivos]
+alguns parâmetros:
+-c não cria arquivos que não exitam; 
+por padrão, apenas o uso do touch sem argumentos faz com que arquivos inexitentes sejam criados com tamanho zero - arquivos vazios.
+--------------------------------------------existe um editor no linux parecido com o vimbasta digitar "nano nomedoarquivo.txt" para abrir
+--------------------------------------------
+o comando cat lista o conteúdo que tem no arquivo
+também serve para concatenar arquivos
+--------------------------------------------Compactadores
+Tipos
+.gz - compactado pelo gzip
+.bzip2 - compactado pelo bzip2
+.tar.gz - compactado pelo gzip no utilitário de arquivamento tar
+............................................
+tar é um arquivador
+ou seja, ele ujnta arquivos e não compactado
+pode ser usado com o gzip para fazer a compactação e arquivamento
+Sintaxe
+tar [opções] [arquivo-destino] [arquivo-origem]
+
+[opções]:
+-c (cria um novo arquivo)
+-x (extrai arquivos de um arquivo compactado)
+-j (filtra o arquivo compactado por meio do bzip2)
+-z (filtro o arquivo compactado através do gzip)
+-t (lista o conteúdo do arquivo compactado)
+-f (usa o arquivo especificado para gravação)
+...........................................
+exemplo:
+tar -cf aulas.tar aula*
+// cria e faz a gravação em aulas.tar 
+// aula* serve para pegar todos os arquivos que começão com aula
+............................................
+exemplo:
+tar -czf aulas.tar aula*
+// cria, compacta o arquivo usando o gzip, e faz a gravação de 
+todos os arquivos que começão com aula
+...........................................
+Comando dpkg
+
+sudo dpkg -i nomedoarquivo
+instala o pacote escolhido que está em uma pasta (fora do repositório)
+
+----------------------------------------------------------
+você deve fazer o download do app que deseja instalar, entrar na pasta Download e executar o comando sudo dpkg -i e o nome do arquivo que voc~e fez o Download.
+digite a senha do usuário e os pacotes serão descompactados e instalados.
+----------------------------------------------------------
+tipos de permissões de acesso
+r - permissão de leitura para arquivos
+para diretórios, permite listar seu conteúdo
+w - permissão para escrita para arquivos
+para diretórios, permite a gravação de arquivos ou outros diretórios dentro dele
+** Um arquivo/diretório só pode ser apagado se tiver permissão de escrita
+x - permite executar um arquivo (caso seja um programa executável)
+Para diretórios, permite que seja acessado por meio do comando cd
+----------------------------------------------------------
+grep - procura por um texto dentro de um arquivo(s) ou no dispositivo de entrada padrão
+df - Mostra o espaço livre/ocupado de cada partição
+find - procura por arquivos/diretórios no disco
+free - Mostra detalhes sobre a utilização da memória RAM do sistema
+date - permite ver/modificar a data e hora do sistema
+reboot - Reinicia o computador
+shutdown - desliga/Reinicia o computador imediatamente ou após determinado tempo(programável) de forma segura
+-----------------------------------------------------
+
