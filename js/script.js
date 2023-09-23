@@ -5,3 +5,10 @@ btn.addEventListener("click", () => {
     btn.style.background = "rgb(226, 67, 67)";
     // btn.style.padding = "20px"
 })
+
+let x = 15
+
+while (x > 0) {
+    console.log(x)
+    x--
+}
