@@ -1,5 +1,5 @@
 # Tudo que está dentro do trio de aspas duplas é o que chamamos de "docstring"
-# é chamado no começo da função para auxiliar o 'usuário' a compreender o que a função pede
+# é chamado no começo da função para auxiliar o 'usuário' a compreender o que a função pede. É um help() para o usuário em caso de dúvidas sobre a função.
 
 def soma (x = 0, y = 0, z = 0):
     """_summary_
