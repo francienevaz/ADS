@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simples</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body{
+        margin: 50px;
+        padding: 0;
+        font-size: 20px;
+        background-color:#a6b2e5;
+        display: flex;
+        justify-content: center;
+    }
+    .calc {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 20px;
+        padding: 20px;
+        height: 50vh;
+        width: 25vw;
+        background-color:#374169;
+    }
+
+    #inputNumber {
+        font-size: 30px;
+        font-weight: bold;
+        height: 50px;
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        border-bottom:2px solid #01051a;
+        margin: 5px 0 0 5px;
+    }
+    button {
+        background: transparent;
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+        margin: 3px;
+    }
+    button:hover {
+        background-color: #e8ebf5;
+        color: #01051a;
+        transition: 1s ease-in;
+    }
+
+    .simbols {
+        background-color: #b11549;
+        color: #f9faff;
+    }
+</style>
+<body>
+    <div class="calc">
+        <input type="number" id="inputNumber" name="display">
+        <div class="f1">
+            <button onclick="clean()" class="simbols">C</button>
+            <button onclick="porcentagem()" class="simbols">%</button>
+            <button onclick="squad()" class="simbols">x²</button>
+            <button onclick="reset()" class="simbols">reset</button>
+        </div>
+        <div class="f2">
+            <button onclick="takeNumber(this)">7</button>
+            <button onclick="takeNumber(this)">8</button>
+            <button onclick="takeNumber(this)">9</button>
+            <button onclick="" class="simbols">/</button>
+        </div>
+        <div class="f3">
+            <button onclick="takeNumber(this)">4</button>
+            <button onclick="takeNumber(this)">5</button>
+            <button onclick="takeNumber(this)">6</button>
+            <button onclick="" class="simbols">*</button>
+        </div>
+        <div class="f4">
+            <button onclick="takeNumber(this)">1</button>
+            <button onclick="takeNumber(this)">2</button>
+            <button onclick="takeNumber(this)">3</button>
+            <button onclick="" class="simbols">-</button>
+        </div>
+        <div class="f5">
+            <button onclick="takeNumber(this)">0</button>
+            <button onclick="takeNumber(this)">00</button>
+            <button onclick="takeNumber(this)">.</button>
+            <button onclick="" class="simbols">+</button>
+        </div>
+    </div>
+    <script>
+        let inputValue = document.getElementById("inputNumber");
+        function clean() {
+            document.getElementById("inputNumber").value = "";
+        }
+        function porcentagem() {
+            let porcentagem = Number(inputValue.value)/100;
+            inputValue.value = porcentagem;
+        }
+        function squad () {
+            let squad = Number(inputValue.value) * Number(inputValue.value);
+            inputValue.value = squad;
+        }
+        function reset() {
+            inputValue.value = inputValue.value.toString().slice(0,-1)
+        }
+        function takeNumber(button) {
+            inputValue.value = button.innerText;
+        }
+    </script>
+</body>
+</html>
