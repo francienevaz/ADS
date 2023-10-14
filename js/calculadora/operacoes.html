@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simples</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 24px;
+        font-weight: bold;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .inputs {
+        display: flex;
+    }
+
+    .inputs .n1, .n2 {
+        height: 100px;
+        width: 100px;
+        padding: 10px;
+        margin: 5px;
+        font-size: 35px;
+    }
+
+    #operacoes {
+        width: 20%;
+        margin: 10px;
+
+    }
+
+    .res {
+        background-color: #ce6e6e;
+        color: rgb(82, 255, 2);
+        text-align: center;
+        font-size: 35px;
+        padding: 10px;
+        border-radius: 20px;
+        display: none;
+        margin-top: 10px;
+    }
+</style>
+<body>
+    <div class="inputs">
+        <input type="text" class="n1">
+        <input type="text" class="n2">
+    </div>
+    <select name="operacoes" id="operacoes">
+        <option value="somar">Somar</option>
+        <option value="subtrair">Subtrair</option>
+        <option value="multiplicar">Multiplicar</option>
+        <option value="dividir">Dividir</option>
+    </select>
+    <button type="button" id="btn">Calcule</button>
+    <div class="res" id="res"></div>
+    <script>
+        let n1 = document.querySelector(".n1");
+        let n2 = document.querySelector(".n2");
+        let btn = document.querySelector("#btn");
+        let res = document.querySelector(".res");
+        let op = document.querySelector("#operacoes");
+        let div = document.getElementById("res");
+
+        btn.addEventListener("click", () => {
+            if (n1.value == "" || n2.value == "") {
+                n1.value = 0;
+                n2.value = 0;
+            }
+
+            if(op.value == "somar"){
+            let total = Number(n1.value) + Number(n2.value);
+            res.innerHTML = total;
+            div.style.display="flex";
+            
+            } else if (op.value == "subtrair") {
+            let total = Number(n1.value) - Number(n2.value);
+            res.innerHTML = total;
+            div.style.display="flex";
+            } else if (op.value == "dividir" && n2.value !== 0) {
+            let total = Number(n1.value) / Number(n2.value);
+            res.innerHTML = total;
+            div.style.display="flex";
+                if (n2.value == 0) {
+                    res.innerHTML = "<p>Impossível dividir por 0</p>"
+                }
+            } else if (op.value == "multiplicar") {
+            let total = Number(n1.value) * Number(n2.value);
+            res.innerHTML = total;
+            div.style.display="flex";
+            }
+        })
+
+
+    </script>
+</body>
+</html>
