@@ -19,7 +19,7 @@ while True:
     ''')
 
     print('''
-        Qual sabor você vai querer:
+        Qual sabor você vai querer hoje:
         
         1 - Açaí 
         
@@ -30,40 +30,52 @@ while True:
     tamanho = input("Escolha um tamanho (P/M/G): ")
 
     valor = 0
+    quantidade = 0
     
     if sabor == 1:
         if tamanho.upper() == 'P':
-            valor = 12.00      
+            valor = 12.00
+            quantidade += 1      
             
         elif tamanho.upper() == 'M':
-            valor = 17.00        
+            valor = 17.00
+            quantidade += 1         
             
         elif tamanho.upper() == 'G':
             valor = 21.00
+            quantidade += 1
+        else:
+            print('Tamanho inválido')
 
-        print(f'Você escolheu um Acaí {tamanho} no valor de: R${valor:.2f}')
+        print(f'Você escolheu um Acaí {tamanho.upper()} no valor de: R${valor:.2f}')
+
 
     elif sabor == 2:
         if tamanho.upper() == 'P':
-            valor = 10.00        
+            valor = 10.00
+            quantidade += 1         
         
         elif tamanho.upper() == 'M':
-            valor = 15.00        
+            valor = 15.00 
+            quantidade += 1        
         
         elif tamanho.upper() == 'G':
             valor = 19.00
+            quantidade += 1 
         
-        print(f'Você escolheu um Cupuaçu {tamanho} no valor de: R${valor:.2f}') 
-        
+        print(f'Você escolheu um Cupuaçu {tamanho.upper()} no valor de: R${valor:.2f}')
+    else:
+        print('\nOpção inválida, por favor digite novamente!\n')
+
     opcao = input('Deseja incluir mais alguma coisa? Digite S para SIM e N para NÃO: ')
 
     if opcao.upper() == 'S':
-        quantidade = float(input('\nDigite a quantidade desejada: '))
+        quantidade += float(input('\nDigite a quantidade desejada: '))
         quantidade_total += quantidade  # Atualize a quantidade total
-        total_pedido += quantidade * valor  # Atualize o total do pedido
+        total_pedido += quantidade_total * valor  # Atualize o total do pedido
     elif opcao.upper() == 'N':
         print(f'Total do seu pedido: R${total_pedido:.2f}')
         break
 
-# calculo do valor do pedido não está funcionando corretamente
-# necessário averiguar os calculos
+# problema com cálculos resolvido
+# falta tratar os erros, e usar o continue e break como é pedido na atividade
