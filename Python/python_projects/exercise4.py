@@ -7,7 +7,7 @@ def main():
     #Definindo as funções
     def cadastrar_livro(id):
         print("------------------- Menu Cadastrar Livros -------------------")
-        print('Id do livro {}'.format(id))
+        print(f'Id do livro {id}')
         livro = input("Por favor digite o nome do livro: ")
         autor = input("Por favor digite o nome do autor: ")
         editora = input("Por favor digite o nome da editora: ")
@@ -24,7 +24,7 @@ def main():
             3 - Consultar por autor
             4 - Retornar ao menu principal
         ''')
-        
+        # Se "consulta" não estiver entre os dados dessa array, retorna "opção inválida"
         if consulta not in ['1', '2', '3', '4']:
             print('Opção inválida')
         else:
@@ -32,7 +32,20 @@ def main():
                 print(lista_livros)
             elif consulta == '2':
                 id_consulta = int(input("Digite o ID do livro que deseja consultar: "))
-                print(lista_livros[id_consulta])
+
+                # Verifica se id_consulta é maior ou igual a 1, e se é menor que o tamanho da lista, caso contrário retorna "ID não encontrado."
+                if 1 <= id_consulta <= len(lista_livros):
+                    
+                    # livro recebe o livro correspondente
+                    livro = lista_livros[id_consulta - 1]
+
+                    # Imprime o livro com o índice aumentado em 1
+                    print(f"ID: {id_consulta}, Livro: {livro['livro']}, Autor: {livro['autor']}")
+                else:
+                    print("ID não encontrado.")
+
+                # print(lista_livros[id_consulta])
+
             elif consulta == '3':
                 #Solicita o nome do autor a ser consultado  
                 autor_consulta = input("Digite o nome do autor que deseja consultar: ")
@@ -47,9 +60,11 @@ def main():
 
     def remover_livro():
         print("--------------------- Menu Remover Livros ---------------------")
-        remove_id = int(input("Por favor digite o ID do livro que deseja excluir: "))
+        remover_id = int(input("Por favor digite o ID do livro que deseja excluir: "))
+
+        # Para cada indice do livro na lista_livros, verifica se o id do livro é igual ao remover_id, depois deleta o indice correspondente e saí do loop
         for i, livro in enumerate(lista_livros):
-            if livro['id'] == remove_id:
+            if livro['id'] == remover_id:
                 del lista_livros[i]
                 break
 
@@ -62,11 +77,12 @@ def main():
             3 - Remover livro
             4 - Encerrar programa
         ''')
-        
+        # Se "opcao" não estiver entre os dados dessa array, retorna "opção inválida"
         if opcao not in ['1', '2', '3', '4']:
             print('Opção inválida')
         else:
             if opcao == '1':
+            # a id_global é incrementada
                 id_global += 1
                 cadastrar_livro(id_global)
             elif opcao == '2':
@@ -76,7 +92,6 @@ def main():
             else:
                 return
 
+# Início do programa
 if __name__ == '__main__':
     main()
-
-#Verificar forma de retornar o id do array, pois está retornando pelo index, se digitar 0, retorna 1 e assim segue
