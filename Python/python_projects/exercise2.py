@@ -1,15 +1,21 @@
-quantidade_total = 0
+# Definindo as variáveis globais
+quantidade_total_cp = 0  # Quantidade total de Cupuaçu
+quantidade_total_ac = 0  # Quantidade total de Açaí
 total_pedido = 0
 
-while True:
+# menu[sabor][tamanho] - como acessar o preço de cada item
 
+menu = {
+    'CP': {'P': 10.00, 'M': 15.00, 'G': 19.00},
+    'AC': {'P': 12.00, 'M': 17.00, 'G': 21.00}
+}
+
+while True:
     print('''
     == Seja Bem Vindos - Açaí da Franciene Vaz ==
-    ''')
-    print('''
-        
+
     =================== Menu ===================
-    ---| Tamanho |   Açaí    |   Cupuaçu    |---
+    ---| Tamanho | Açaí [AC] | Cupuaçu [CP] |---
     ---|    P    |  $12,00   |    $10,00    |---
     ---|    M    |  $17,00   |    $15,00    |---
     ---|    G    |  $21,00   |    $19,00    |---
@@ -18,64 +24,37 @@ while True:
             Obrigada e volte sempre!
     ''')
 
-    print('''
-        Qual sabor você vai querer hoje:
-        
-        1 - Açaí 
-        
-        2 - Cupuaçu 
-        
-        ''')
-    sabor = int(input("Digite aqui a opção escolhida (1 ou 2): "))
-    tamanho = input("Escolha um tamanho (P/M/G): ")
+    sabor = input("Escolha o sabor: (CP ou AC) ").upper()
 
-    valor = 0
-    quantidade = 0
-    
-    if sabor == 1:
-        if tamanho.upper() == 'P':
-            valor = 12.00
-            quantidade += 1      
-            
-        elif tamanho.upper() == 'M':
-            valor = 17.00
-            quantidade += 1         
-            
-        elif tamanho.upper() == 'G':
-            valor = 21.00
-            quantidade += 1
-        else:
-            print('Tamanho inválido')
+    # Se o sabor não estiver no menu...
+    if sabor not in menu:
+        print("Sabor Inválido. Tente novamente!")
+        continue
 
-        print(f'Você escolheu um Acaí {tamanho.upper()} no valor de: R${valor:.2f}')
+    tamanho = input("Escolha um tamanho (P/M/G): ").upper()
 
+    # Se o tamanho não estiver no menu[sabor]...
+    if tamanho not in menu[sabor]:
+        print("Tamanho inválido. Tente novamente!")
+        continue
 
-    elif sabor == 2:
-        if tamanho.upper() == 'P':
-            valor = 10.00
-            quantidade += 1         
-        
-        elif tamanho.upper() == 'M':
-            valor = 15.00 
-            quantidade += 1        
-        
-        elif tamanho.upper() == 'G':
-            valor = 19.00
-            quantidade += 1 
-        
-        print(f'Você escolheu um Cupuaçu {tamanho.upper()} no valor de: R${valor:.2f}')
-    else:
-        print('\nOpção inválida, por favor digite novamente!\n')
+    quantidade = int(input('Digite a quantidade desejada: '))
+
+    preco_item = menu[sabor][tamanho]
+    total_item = quantidade * preco_item
+
+    quantidade_total_cp += quantidade if sabor == 'CP' else 0
+    quantidade_total_ac += quantidade if sabor == 'AC' else 0
+
+    total_pedido += total_item
+
+    print(f'Você escolheu um {sabor} {tamanho} no valor de: R${preco_item:.2f}')
+    print(f'Total do item: R${total_item:.2f}')
 
     opcao = input('Deseja incluir mais alguma coisa? Digite S para SIM e N para NÃO: ')
+    # Se for digitado S, é retornado ao início do loop
 
-    if opcao.upper() == 'S':
-        quantidade += float(input('\nDigite a quantidade desejada: '))
-        quantidade_total += quantidade  # Atualize a quantidade total
-        total_pedido += quantidade_total * valor  # Atualize o total do pedido
-    elif opcao.upper() == 'N':
+    if opcao.upper() == 'N':
         print(f'Total do seu pedido: R${total_pedido:.2f}')
         break
 
-# problema com cálculos resolvido
-# falta tratar os erros, e usar o continue e break como é pedido na atividade

@@ -92,6 +92,6 @@ def main():
             else:
                 return
 
-# Início do programa
+# Início do programa - boa prática usar essa estrutura no fim do arquivo python
 if __name__ == '__main__':
     main()
