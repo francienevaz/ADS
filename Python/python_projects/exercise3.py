@@ -1,11 +1,8 @@
 print("""
         *** Seja Bem Vindo(a)s a Copiadora da Franciene Vaz ***
     """)
-def servicos(): 
-   try:
-       while True:   
-
-        servico = input("""
+def servicos():
+   servico = input("""
             Digite o código do serviço desejado:
                 
             [DIG] - Digitalização
@@ -13,8 +10,13 @@ def servicos():
             [IBO] - Impressão em Preto e Branco
             [FOT] - Fotocópia
 
-        """).upper()
-        print(servico)
+        """).upper() 
+   paginas = int(input("Entre com o número de páginas: "))
+   serviceValue = 0
+   descValue = 0
+   extra = 0
+   try:
+       while True:   
 
         if (servico not in ["DIG", "ICO", "IBO", "FOT"]):
             print ("Código de Serviço Inválido!")
@@ -22,12 +24,7 @@ def servicos():
             servicos()
 
         else:
-            # definir variáveis        
-            paginas = int(input("Entre com o número de páginas: "))
-            serviceValue = 0
-            descValue = 0
-            extra = 0
-
+            
             if servico == "DIG":
                 serviceValue += 1.10
             elif servico == "ICO":
@@ -49,8 +46,7 @@ def servicos():
                 descValue = 20
             else:
                 print("Excedeu o limite de páginas, digite um número de páginas menor!")
-                continue
-                    
+                servicos()                    
 
         opcao = float(input("""Deseja adicionar mais um serviço?
                             Escolha uma opção:
@@ -63,7 +59,7 @@ def servicos():
         elif opcao == 2:
             extra += 25.00
         else:
-            extra = 0
+            extra += 0
 
         valorTotal = (serviceValue * paginas) + extra
         desconto = (valorTotal * descValue)/100
