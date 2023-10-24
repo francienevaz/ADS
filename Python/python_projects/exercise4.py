@@ -29,7 +29,8 @@ def main():
             print('Opção inválida')
         else:
             if consulta == '1':
-                print(lista_livros)
+                 for livro in lista_livros:
+                    print(f"id: {livro['id']}, nome: {livro['livro']}, autor: {livro['autor']}, editora: {livro['editora']}")
             elif consulta == '2':
                 id_consulta = int(input("Digite o ID do livro que deseja consultar: "))
 
@@ -53,8 +54,9 @@ def main():
                 #Para cada livro em lista_livros se o nome do autor for igual ao recebido em autor_consulta, livros_autor recebe os dados do livro
                 livros_autor = [livro for livro in lista_livros if livro['autor'] == autor_consulta]
 
-                #imprime a lista
-                print(livros_autor)
+                #imprime a lista para cada livro em livros_autor
+                for livro in livros_autor:
+                    print(f"autor: {livro['autor']}, id: {livro['id']}, nome: {livro['livro']}, editora: {livro['editora']}")
             else:
                 return
 

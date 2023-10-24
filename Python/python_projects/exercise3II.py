@@ -1,6 +1,6 @@
 def main(): 
     print("""
-            *** Seja Bem Vindo(a)s a Copiadora da Franciene Vaz ***
+************* Seja Bem Vindo(a)s a Copiadora da Franciene Vaz *************
         """)
 
     def escolha_servico():
@@ -34,11 +34,11 @@ def main():
         while True:
             extra = 0
             opcao = input("""Deseja adicionar mais um serviço?
-                                    Escolha uma opção:
-                                    [1] - Encadernação Simples - R$10.00
-                                    [2] - Encadernação Capa Dura - R$25.00
-                                    [3] - Sem encadernação - Grátis
-                                    """)
+                Escolha uma opção:
+                [1] - Encadernação Simples - R$10.00
+                [2] - Encadernação Capa Dura - R$25.00
+                [3] - Sem encadernação - Grátis
+            """)
             
             if opcao not in ['1', '2', '3']:            
                 print('Opção inválida')
@@ -52,35 +52,37 @@ def main():
 
             return extra
     
-    servico = escolha_servico()
-    paginas = num_pagina()
+    while True:
+        servico = escolha_servico()
+        paginas = num_pagina()
 
-    serviceValue = {
-        "DIG": 1.10,
-        "ICO": 1.00,
-        "IBO": 0.40,
-        "FOT": 0.20
-    }.get(servico, 0)
+        serviceValue = {
+            "DIG": 1.10,
+            "ICO": 1.00,
+            "IBO": 0.40,
+            "FOT": 0.20
+        }.get(servico, 0)
 
-    descValue = 0
-    if paginas < 10:
         descValue = 0
-    elif 10 <= paginas < 100:
-        descValue = 10
-    elif 100 <= paginas < 1000:
-        descValue = 15
-    elif 1000 <= paginas < 10000:
-        descValue = 20
-    else:
-        print("Excedeu o limite de páginas, digite um número de páginas menor!")
-        return
-    
-    extra = servico_extra()
-    valorTotal = (serviceValue * paginas) + extra
-    desconto = (serviceValue * paginas) * descValue /100
-    valorTotalDesconto = valorTotal - desconto
+        if paginas < 10:
+            descValue = 0
+        elif 10 <= paginas < 100:
+            descValue = 10
+        elif 100 <= paginas < 1000:
+            descValue = 15
+        elif 1000 <= paginas < 10000:
+            descValue = 20
+        else:
+            print("Excedeu o limite de páginas, digite um número de páginas menor!")
+            continue            
+        
+        extra = servico_extra()
+        valorTotal = (serviceValue * paginas) + extra
+        desconto = (serviceValue * paginas) * descValue /100
+        valorTotalDesconto = valorTotal - desconto
 
-    print("Total: {:.2f} (serviço: {} * páginas: {} + extras: {})".format(valorTotalDesconto, serviceValue, paginas, extra))
+        print("Total: {:.2f} (serviço: {} * páginas: {} + extras: {})".format(valorTotalDesconto, serviceValue, paginas, extra))
+        break
 
 if __name__ == '__main__':
     main()

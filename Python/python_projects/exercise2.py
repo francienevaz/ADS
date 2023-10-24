@@ -48,7 +48,7 @@ while True:
 
     total_pedido += total_item
 
-    print(f'Você escolheu um {sabor} {tamanho} no valor de: R${preco_item:.2f}')
+    print(f'Você escolheu um {sabor} - {tamanho} no valor de: R${preco_item:.2f}')
     print(f'Total do item: R${total_item:.2f}')
 
     opcao = input('Deseja incluir mais alguma coisa? Digite S para SIM e N para NÃO: ')
