@@ -16,6 +16,9 @@ def fatorial(n):
     else:
         return n * fatorial(n-1)
 
+x = float(input('Digite um valor para calcular o fatorial: '))
+print('{}! = {:.5f}'.format(x, fatorial(x)))
+
 def par(x):
     """_summary_
 
