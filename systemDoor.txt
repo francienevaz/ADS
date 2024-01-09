@@ -1,0 +1,27 @@
+identificarUsuario(usuario) {
+	let funcionario = "";
+
+	analisarVozUsuario(voz) => {
+		let voz = usuario;
+
+		voz === dataVoz ? funcionario = true : funcionario = false;
+	}
+	
+	identificarSmartphoneUsuario(id){
+		let id = usuario;
+
+		id === dataVoz ? funcionario = true : funcionario = false;
+	}
+	
+	return funcionario;
+}
+
+openDoor(usuario) => {
+	if (usuario) {
+		print("Acesso Liberado!")
+	} else {
+		print("Acesso negado! Usuário não identificado!")
+	}
+}
+
+openDoor(identificarUsuario())

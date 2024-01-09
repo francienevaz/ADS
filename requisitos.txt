@@ -1,0 +1,45 @@
+divisão de macros nutrientes
+tentar bater os macros
+procurar por dieta flexível
+
+começar a passar os casos de
+uso para classes
+
+classe Cadastro que extends 
+para Funcionário e Visitantes
+** características que são comuns 
+a dois, ou mais tipos de "objetos"
+é interessante verificar a 
+possibilidade de criar uma classe 
+super, onde a partir de então
+extender para essas classes filhas
+que herdam essas características
+porém mantendo as suas características
+próprias.
+
+Regras de negócio
+
+
+Requisitos Funcionais
+- O Sistema irá reconhecer funcionária pcd via comando de voz para liberar a porta;
+- O Sistema irá liberar os demais funcionários via smartphone;
+- O Sistema irá fazer a leitura facial dos indivíduos presentes no local, e notificar ao gerente geral quando houver
+uma pessoa diferente.
+- O Sistema irá reconhecer comandos para ligar Luzes e ar-condicionado - comando de voz - qualquer pessoa
+pode ativar;
+- O Sistema irá controlar a temperatura do Ar-condicionado por comando de voz;
+- O Sistema irá identificar o nível de acesso de cada funcionário para liberar as portas de acordo o nível de acesso;
+
+Requisitos não funcionais
+- Projeto requer um computador e servidor local;
+- Câmera para tirar foto na hora do cadastro dos visitantes e funcionários;
+- Gravador de voz digital para captura dos áudios;
+- Sensores de temperatura em todas as salas;
+- Projeto requer câmeras que irão fazer o reconhecimento facial dos indivíduos presentes no local;
+- Microfone que irá permitir o reconhecimento da voz da funcionária pcd;
+- Leitor NFC que irá fazer a identificação do smartphone;
+- Tranca nas portas para fazer a segurança/Controladores de acesso - ambos podem ser integrados com sistema ao mesmo tempo ou separadamente;
+ 
+
+
+
