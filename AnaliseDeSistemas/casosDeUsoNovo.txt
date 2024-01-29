@@ -1,0 +1,183 @@
+Lista de caso de usos:
+acesso ao sistema
+abrir porta(funcionario, cliente) -> verificar nível de acesso(funcionario)
+verificar nível de acesso(funcionario)
+cadastrar funcionario -> capturar Voz || cadastrar Smartphone
+cadastrar cliente
+acender luzes
+controlar ar
+
+Caso de Uso: Acessar o sistema
+Breve Descrição: Login, Consultar, Cadastrar, Editar, Bloquear, Monitorar usuários do sistema.
+
+Fluxo Principal:
+01: Login
+Usuário entra com Login e senha para acessar o sistema, se houver divergências retorna MSG01.
+Se for o primeiro acesso, usuário cria um Login e Senha, e repete a Senha para confirmar.
+02: Consultar
+A primeira tela terá a opção de consultar por RG/CPF do usuário para verificar se o mesmo existe no sistema.
+Se o usuário existir, retorna o cadastro do usuário com os dados, que será possível Editar ou Bloquear.
+03: Cadastrar
+Será possivel cadastrar Funcionário e cadastrar Cliente se os mesmos não estiverem cadastrados no sistema.
+04: Monitorar
+Terá uma opção de Monitoramento, onde será possível analisar os registros de entrada e saída dos funcionários e clientes no escritório. Sendo possível filtrar por data/mês e hora. Ao consultar se houver erro, ou registro não for encontrado, retorna MS02.
+
+Messagens:
+
+MS01 - Usuário ou senha inválidos, por favor tente novamente!
+MS02 - Não foi possível encontrar registros para o período solicitado!
+---------------------------------------------------------------------------------------------------------------
+
+
+Caso de Uso: Abrir Porta
+
+Breve Descrição: Identificar, analisar, liberar ou bloquear o acesso à porta com base na autenticação do usuário.
+
+Fluxo Principal:
+
+O sistema verifica se o usuário é um funcionário através da análise de voz ou identificação do ID do smartphone.
+Se a autenticação for bem-sucedida, a porta é liberada.
+O sistema verifica se o usuário é um cliente cadastrado, utilizando IA para comparar o rosto do usuário com os dados do banco de dados no servidor.
+Se a autenticação for bem-sucedida, a porta é liberada.
+Se a voz, o smartphone ou o rosto do usuário não for identificado, o sistema retorna a mensagem de erro MSG01.
+Fluxo Alternativo:
+
+portaID = gerente;
+portaID = RH;
+portaID = CEO;
+
+Se nívelAcessoFuncionario == "Master" - Liberar todas as portas
+Se nívelAcessoFuncionario == "Gerente" - Liberar porta Gerente, se !gerente retorna mensagem erro
+Se nívelAcessoFuncionario == "RH" - Liberar porta RH, se !RH retorna mensagem erro
+
+MSG01: "Usuário não identificado. Tente novamente."
+
+---------------------------------------------------------------------------------------------------------------
+Caso de Uso: Verificar Nível de Acesso
+O sistema irá verificar o nível de acesso para cada porta que chamar o método verificarNivelDeAcesso:
+Se o nível de acesso do funcionário for igual a "Master", todas as portas serão liberadas para esse funcionário.
+Se o nível de acesso do funcionário for igual a "Gerente", porta Gerente será Liberada;
+o nível de acesso do funcionário for igual a "RH", porta RH será liberada;
+Se o funcionário não for identificado, retorna mensagem de erro - "Usuário não identificado, tente novamente!"
+
+---------------------------------------------------------------------------------------------------------------
+
+Caso de Uso: Cadastro Funcionário
+
+Breve Descrição: Adicionar, Editar, Bloquear funcionários no sistema.
+
+Fluxo Principal:
+
+01 - Verificar Existência:
+
+O sistema verifica se o usuário já está cadastrado no sistema com base no RG. Se existir, retorna FA01.
+02 - Cadastrar Funcionário:
+
+Coleta dados como nome, RG, cargo, fotografia e permite o cadastro de autenticação por smartphone ou voz.
+03 - Opções de Cadastro:
+
+No sistema de cadastro, após incluir dados como nome e RG, o sistema oferece opções para capturar voz ou cadastrar smartphone.
+04 a 09 - Captura de Voz e Cadastro de Smartphone:
+
+Detalhes sobre a captura de voz e o cadastro de smartphone, incluindo verificações e mensagens de erro.
+10 - Seleção de Nível:
+
+O sistema permite selecionar o nível do funcionário (Master, Gerente, RH, CEO).
+11 - Salvar Funcionário:
+
+Salva todas as informações do funcionário, incluindo nível de acesso.
+
+Fluxo Alternativo:
+
+FA01 - RG/CPF JÁ CADASTRADO: Retorna mensagem indicando que o RG ou CPF já está cadastrado em seguida
+Retorna o cadastro do funcionário com as opções de Editar e Bloquear.
+Ao Editar, é possível alterar os dados do Funcionário, podendo incluir ou deletar arquivos de Voz, Alterar o Smartphone  cadastrado, trocar a foto do Funcionário.
+Ao clicar em Bloquear, é possível alterar o Status do Funcionário para Bloqueado.
+Ao final da edição os dados serão salvos no Servidor.
+
+FA02 - ID SMARTPHONE JÁ CADASTRADO: Retorna à opção de cadastrar smartphone.
+
+Mensagens:
+
+MSG01 - DIVERGÊNCIA NAS VOZES: Mensagem a ser exibida se houver divergência nas amostras de voz.
+
+Regras de Negócio:
+
+Acesso por Nível:
+Todos os funcionários têm acesso à porta principal.
+Funcionários PCD têm acesso Master.
+Gerentes têm acesso à sala de gerente.
+Funcionários RH têm acesso à sala de RH.
+CEO tem acesso Master.
+---------------------------------------------------------------------------------------------------------------
+
+Caso de Uso: Cadastrar Cliente
+
+Breve Descrição: Adicionar, Editar, Bloquear cliente do sistema.
+
+Fluxo Principal:
+
+UC01 - Verificar Existência:
+
+O sistema verifica se o usuário já está cadastrado no sistema com base no RG. Se existir, retorna FA01.
+UC02 - Cadastrar Cliente:
+
+Coleta dados como nome, RG, e fotografia.
+
+Ao tirar a fotografia do cliente, o sistema verifica se a foto está nítida, caso contrário, retorna mensagem FA02, e reinicia o processo de tirar foto.
+
+UC03 - Salvar Cliente:
+
+Salva todas as informações do cliente.
+
+Fluxo Alternativo:
+
+FA01 - RG/CPF JÁ CADASTRADO: Retorna o cadastro do Cliente, com as opções de Editar e Bloquear.
+Ao Editar, é possível alterar os dados do Cliente, desde nome, foto e RG.
+Ao clicar em Bloquear, é possível alterar o Status do Cliente de Ativo para Bloqueado.
+
+---------------------------------------------------------------------------------------------------------------
+Caso de Uso: Ligar
+
+O usuário irá acionar usando o comando de voz "Ligar..." seguido do aparelho que ele desejar ligar, e se o mesmo estiver desligado, irá ligar. Se já estiver ligado, nada irá acontecer.
+
+---------------------------------------------------------------------------------------------------------------
+Caso de Uso: Desligar
+
+O usuário irá acionar usando o comando de voz "Desligar..." seguido do aparelho que ele desejar desligar, e se o mesmo estiver ligado, irá desligar. Se já estiver desligado, nada irá acontecer.
+
+---------------------------------------------------------------------------------------------------------------
+Caso de Uso: Controlar Ar condicionado
+
+O usuário irá acionar o controle  de temperatura por voz "Aumentar Temperatura", ou pelo comando "Diminuir Temperatura", isso irá aumentar ou diminuir a temperatura ambiente.
+
+O sistmema irá monitorar a temperatura ambiente, e se a mesma atingir dada temperatura, o ar condicionado irá desligar, e irá ligar se a temperatura mudar.
+
+---------------------------------------------------------------------------------------------------------------
+Caso de Uso: Notificar Novo Usuário
+
+As câmeras vão fazer a captura das imagens/videos enviar para a IA interna do servidor, para fazer o pré-processamento e ajustes e melhora da qualidade das imagens, realizar a detecção facial, extração das características únicas, "features", depois irá solicitar ao banco de dados os dados necessários para fazer a comparação, se o rosto pertence a um indivíduo cadastrado, caso não haja correnpondência, essa informação é passada para o servidor, que irá executar um script de envio de notificação para o whatsapp da CEO, informando que há um possível novo cliente no estabelecimento. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

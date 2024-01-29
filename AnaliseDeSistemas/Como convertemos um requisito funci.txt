@@ -1,0 +1,19 @@
+Como convertemos um requisito funcional em um caso de uso?
+
+A gente agrupa requisitos que fazem as mesmas coisas para criar um caso de uso que encapsule a todos esses requisitos. Juntando requisitos que são semelhantes para atender uma funcionalidade.
+
+abrir porta
+identificar face
+identificar smartphone
+identificar voz
+verificar nível de acesso
+
+acessar o sistema
+cadastrar cliente
+cadastrar funcionario
+
+controlar temperatura
+ligar equipamento
+desligar equipamento
+
+notificar novo usuário

@@ -1,0 +1,24 @@
+Requisitos Funcionais
+- O Sistema irá reconhecer funcionária PCD via comando de voz para liberar as portas;
+- O Sistema irá liberar a porta aos demais funcionários via leitura NFC do ID do smartphone; 
+- O Sistema irá fazer a leitura facial dos indivíduos presentes no local, e notificar ao gerente geral quando houver uma pessoa diferente. leituraFacial()-> notificar(desconhecido)
+- O Sistema irá reconhecer comandos de voz para ligar e desligar luzes e ar-condicionado, onde qualquer pessoa
+pode ativar;
+- O Sistema irá controlar a temperatura do Ar-condicionado por comando de voz, e monitorar para que quando uma dada temperatura for atingida ele desligue e quando essa temperatura mudar uns graus acima o ar condicionado seja acionado novamente.
+- O Sistema irá identificar o nível de acesso de cada funcionário para liberar as portas de acordo o nível de acesso;
+
+
+Requisitos não funcionais
+- Tranca nas portas para fazer a segurança/Controladores de acesso - ambos podem ser integrados com sistema ao mesmo tempo ou separadamente;
+
+Requisitos não funcionais
+- Projeto requer microfones que irão permitir o reconhecimento da voz da funcionária pcd nas portas;
+- Leitor NFC que irá fazer a identificação dos smartphones dos funcionários para liberação das portas;
+- Câmera para tirar foto de clientes e funcionários que serão armazenadas no banco de dados no momento do cadastro;
+- Câmeras que irão fazer a captura das imagens/videos e enviar para a IA interna do servidor para análise.
+
+- Projeto requer um computador e servidor local;
+- Gravador de voz digital para captura dos áudios;
+- Sensores de temperatura em todas as salas;
+- Tranca nas portas para fazer a segurança/Controladores de acesso - ambos podem ser integrados com sistema ao mesmo tempo ou separadamente;
+
