@@ -12,14 +12,33 @@
 <body>
 <div class="container">
 	<header>
-		<a class="links page1" href="./index.html">Home</a>
-		<a class="links page2" href="./aboutMe.html">About me</a>
-		<a class="links page3" href="./projects.html">Projects</a>
-		<a class="links page4" href="./contactMe.html">Contact me</a>
+		<a class="links" href="./index.html">Home</a>
+		<a class="links" href="./aboutMe.html">About me</a>
+		<a class="links" href="./degree.html">Academic Background</a>
+		<a class="links" href="./projects.html">Projects</a>
+		<a class="links" href="./contactMe.html">Contact me</a>
 	</header>
-	<main>
+	<main class="mainContact">
 		<h1>Contact Me</h1>
-		<img src="./img/img1.png" alt="">
+		<div class="contact">
+			<form>
+
+				<div class="inputName">
+					<input type="text" id="name" required>
+					<label for="name">Nome</label>
+				</div>
+
+				<div class="inputEmail">
+					<input type="text" id="email" required>
+					<label for="email">Email</label>
+				</div>
+
+				<div class="msg">
+					<textarea name="" id="" cols="60" rows="4" placeholder="Digite sua mensagem aqui!"></textarea>
+					<button id="btnContact" type="button">Enviar</button>
+				</div>
+			</form>
+		</div>
 	</main>
 	<footer>
 		<a class="links" href="#"><i class="fa-brands fa-github"></i></a>
