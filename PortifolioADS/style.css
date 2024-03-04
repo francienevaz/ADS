@@ -16,7 +16,7 @@
 		display: flex;
 		flex-direction: column;
 		margin: 60px;
-		border: thick double rgb(247, 84, 117);
+		border: thick double #f75475;
 		border-radius: 20px;
 		padding-bottom: 30px;
 		transition: opacity 0.5s ease-in-out;
@@ -90,6 +90,30 @@
 
 	#mainDegree {
 		flex-direction: column;
+		text-align: left;
+	}
+
+	.card {
+		display: flex;
+		flex-direction: column;
+		max-width: 50% !important;
+		margin-top: 30px;
+		height: 25%;
+		width: 500px;
+		padding: 40px;
+		box-shadow: 0 0 30px rgba(0, 0, 0, 0.829);
+		border-radius: 20px;
+	}
+
+	.card:hover {
+		transform: scale(1.05) translateY(-10px);
+		border:  1px solid#f75475;
+		transition: all .3s ease;
+	}
+
+	.card:hover h4 {
+		color: #f75475;
+		transition: all .3s ease;
 	}
 
 	.projects {
@@ -98,15 +122,24 @@
 	.projetos {
 		height: 200px;
 		width: 250px;
+		box-shadow: 0 0 30px rgba(0, 0, 0, 0.829);
 		border-radius: 20px;
 		padding: 20px;
 		margin: 20px;
 		color: rgb(221, 217, 218);
-		background: #f75475;
+		background: transparent;
 		text-align: center;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.projetos:hover {
+		transform: scale(1.05) translateY(-10px);
+		color: #f75475;
+		border:  1px solid#f75475;
+		cursor: pointer;
+		transition: all .3s ease;
 	}
 
 	.mainContact {
