@@ -142,6 +142,11 @@
 		transition: all .3s ease;
 	}
 
+	a {
+		text-decoration: none;
+		color: #f75475;
+	}
+	
 	.mainContact {
 		flex-direction: column;
 	}
