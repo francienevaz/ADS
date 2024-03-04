@@ -118,6 +118,9 @@
 
 	.projects {
 		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
 	}
 	.projetos {
 		height: 200px;
@@ -144,7 +147,12 @@
 
 	a {
 		text-decoration: none;
+		color: #fff;
+	}
+
+	a:hover {
 		color: #f75475;
+		transition: all .3s ease;
 	}
 	
 	.mainContact {
