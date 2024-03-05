@@ -16,8 +16,6 @@
 		display: flex;
 		flex-direction: column;
 		margin: 60px;
-		border: thick double #f75475;
-		border-radius: 20px;
 		padding-bottom: 30px;
 		transition: opacity 0.5s ease-in-out;
 	}
@@ -86,6 +84,7 @@
 
 	#mainProjects {
 		flex-direction: column;
+		
 	}
 
 	#mainDegree {
@@ -93,11 +92,18 @@
 		text-align: left;
 	}
 
+	.cards {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+	}
+
 	.card {
 		display: flex;
 		flex-direction: column;
 		max-width: 50% !important;
-		margin-top: 30px;
+		margin: 30px 30px 0 0;
 		height: 25%;
 		width: 500px;
 		padding: 40px;
@@ -159,6 +165,12 @@
 		flex-direction: column;
 	}
 
+	.contact {
+		margin-top: 20px;
+		padding: 10px 50px 0 50px;
+		box-shadow: 0 0 30px rgba(0, 0, 0, 0.829);
+		border-radius: 20px;
+	}
 	.contact form {
 		padding: 20px 0 20px 0;
 		display: flex;
@@ -167,19 +179,6 @@
 
 	.inputName, .inputEmail{
 		position: relative;
-	}
-
-	.contact input { 
-		border: 0;
-		outline: 0;
-		background: transparent;
-		/*backdrop-filter: blur(20px);*/
-		color: #fff;
-		padding: 10px 25px;
-		height: 60px;
-		border-bottom: 2px solid #f75475;
-		flex: 1;
-		font-size: 18px;
 	}
 
 	.contact input::placeholder {
@@ -235,6 +234,8 @@
 	}
 
 	.msg textarea{
+		color: #fff;
+		font-size: 15px;
 		border-radius: 10px;
 		padding: 10px;
 		border: 2px solid #f75475;
@@ -242,10 +243,14 @@
 	}
 
 	footer {
-		position: absolute;
-		right: 150px;
-		bottom: 30px;
-		background: #222;
-		padding-right: 40px;
+		position: relative;
+		padding-bottom: 20px;
 	}
 
+	.footer {
+		position:absolute;
+		text-align: right;
+		right: 100px;
+		bottom: 30px;
+		padding-right: 40px;
+	}
