@@ -59,10 +59,15 @@
 		padding-bottom: 50px;
 	}
 
+	.content {
+		font-size: 1.3rem;
+		max-width: 60%;
+		text-align: center;
+	}
+
 	img {
 		height: 500px;
 		width: 500px;
-		border-radius: 50%;
 		position: relative;
 		z-index: -1;
 	}
@@ -78,7 +83,6 @@
 	#p {
 		font-size: 1.5rem;
 		text-align: justify;
-		max-width: 50%;
 		padding-bottom: 20px;
 	}
 
@@ -113,7 +117,7 @@
 
 	.card:hover {
 		transform: scale(1.05) translateY(-10px);
-		border:  1px solid#f75475;
+		border:  1px solid #f75475;
 		transition: all .3s ease;
 	}
 
@@ -127,6 +131,7 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
+		max-width: 70%;
 	}
 	.projetos {
 		height: 200px;
