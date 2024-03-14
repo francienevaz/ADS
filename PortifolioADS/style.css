@@ -226,8 +226,16 @@
 		height: 50px;
 		width: 100px;
 		border-radius: 10px;
-		background-color: #f75475;
+		color: #f75475;
+		background-color: #fff;
 		cursor: pointer;
+	}
+
+	#btnContact:hover{
+		transform: scale(1.05) translateY(-5px);
+		color: #ddd;
+		background-color: #f75475;
+		transition: .5s;
 	}
 
 	.msg {
