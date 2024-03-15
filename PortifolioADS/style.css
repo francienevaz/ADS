@@ -74,8 +74,8 @@
 
 	#helloWorld {
 		position: absolute;
-		right: 600px;
-		bottom: 150px;
+		right: 350px;
+		bottom: 10px;
 		font-size: 100px;
 		max-width: 100px;	
 	}
@@ -256,14 +256,12 @@
 	}
 
 	footer {
-		position: relative;
-		padding-bottom: 20px;
+		/* position: relative; */
+		bottom: 0;
 	}
 
 	.footer {
-		position:absolute;
-		text-align: right;
-		right: 100px;
-		bottom: 30px;
-		padding-right: 40px;
+		position: sticky;
+		text-align: right;		
+		padding: 40px;
 	}
