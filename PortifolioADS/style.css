@@ -7,15 +7,14 @@
 		box-sizing: border-box; 
 	  }
 	body { 
-		background: #222;
-		height: 100%;
-		color: #fff;	
+		background: #fff;
+		color: #222;	
 		font-size: 18px;      
 	  }
+
 	.container {
 		display: flex;
 		flex-direction: column;
-		margin: 60px;
 		padding-bottom: 30px;
 		transition: opacity 0.5s ease-in-out;
 	}
@@ -27,7 +26,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 150px;
+		height: 100px;
 		width: 100%;
 	}
 
@@ -41,8 +40,13 @@
 	}
 
 	.links:hover {
-		color: #fff;
+		color: #222;
 		transition: 1s ease-in-out;
+	}
+
+	.currentLink {
+		color: #222;
+		text-decoration: underline;
 	}
 
 	main {
@@ -51,18 +55,9 @@
 		justify-content: center;
 	}
 
-	#aboutMe {
-		flex-direction: column;
-	}
-
-	#aboutMe h1 {
-		padding-bottom: 50px;
-	}
-
 	.content {
-		font-size: 1.3rem;
-		max-width: 60%;
-		text-align: center;
+		font-size: 1.2rem;
+		text-align: justify;
 	}
 
 	img {
@@ -74,31 +69,32 @@
 
 	#helloWorld {
 		position: absolute;
-		right: 350px;
-		bottom: 10px;
+		right: 400px;
+		bottom: 100px;
 		font-size: 100px;
 		max-width: 100px;	
 	}
 
 	#p {
 		font-size: 1.5rem;
-		text-align: justify;
+		text-align: center;
 		padding-bottom: 20px;
 	}
 
-	#mainProjects {
-		flex-direction: column;
-		
+	.info {
+		max-width: 50%;
 	}
 
-	#mainDegree {
-		flex-direction: column;
-		text-align: left;
+	.info::first-letter {
+		float: left;
+		font-size: 3em;
+		color: #f75475;
 	}
 
 	.cards {
 		display: flex;
 		flex-wrap: wrap;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
@@ -106,18 +102,19 @@
 	.card {
 		display: flex;
 		flex-direction: column;
-		max-width: 50% !important;
 		margin: 30px 30px 0 0;
 		height: 25%;
 		width: 500px;
 		padding: 40px;
 		box-shadow: 0 0 30px rgba(0, 0, 0, 0.829);
-		border-radius: 20px;
+		border-radius: 5px;
 	}
 
 	.card:hover {
 		transform: scale(1.05) translateY(-10px);
 		border:  1px solid #f75475;
+		border-top-left-radius: 50px;
+		border-bottom-right-radius: 50px;
 		transition: all .3s ease;
 	}
 
@@ -137,7 +134,7 @@
 		height: 200px;
 		width: 250px;
 		box-shadow: 0 0 30px rgba(0, 0, 0, 0.829);
-		border-radius: 20px;
+		border-radius: 5px;
 		padding: 20px;
 		margin: 20px;
 		color: rgb(221, 217, 218);
@@ -152,13 +149,21 @@
 		transform: scale(1.05) translateY(-10px);
 		color: #f75475;
 		border:  1px solid#f75475;
+		border-top-left-radius: 50px;
+		border-bottom-right-radius: 50px;
 		cursor: pointer;
 		transition: all .3s ease;
 	}
 
+	.img {
+		transform: scaleX(-1);
+		z-index: 1;
+
+	}
+
 	a {
 		text-decoration: none;
-		color: #fff;
+		color: #222;
 	}
 
 	a:hover {
@@ -174,7 +179,7 @@
 		margin-top: 20px;
 		padding: 10px 50px 0 50px;
 		box-shadow: 0 0 30px rgba(0, 0, 0, 0.829);
-		border-radius: 20px;
+		border-radius: 5px;
 	}
 	.contact form {
 		padding: 20px 0 20px 0;
@@ -196,7 +201,7 @@
 		left: 5px;
 		transform: translateY(-30%);
 		font-size: 1rem;
-		color: #ffffff;
+		color: #222;
 		font-weight: 500;
 		pointer-events: none;
 		transition: .5s;
@@ -225,7 +230,7 @@
 		margin: 20px 0 20px 0;
 		height: 50px;
 		width: 100px;
-		border-radius: 10px;
+		border-radius: 5px;
 		color: #f75475;
 		background-color: #fff;
 		cursor: pointer;
@@ -247,12 +252,16 @@
 	}
 
 	.msg textarea{
-		color: #fff;
+		outline: #f75475 solid thin;
+		resize: none;
+		font-size: 16;		
+		color: #222;
 		font-size: 15px;
-		border-radius: 10px;
+		border-radius: 5px;
 		padding: 10px;
 		border: 2px solid #f75475;
 		background: transparent;
+		box-shadow: inset -2px -2px 8px rgba(255,92,85,.5), 0 0 10px rgba(255,92,85,.5);
 	}
 
 	footer {
