@@ -112,6 +112,8 @@
 
 	.card:hover {
 		transform: scale(1.05) translateY(-10px);
+		background: #01ffdd;
+		color: #222;
 		border:  1px solid #f75475;
 		border-top-left-radius: 50px;
 		border-bottom-right-radius: 50px;
@@ -119,7 +121,7 @@
 	}
 
 	.card:hover h4 {
-		color: #f75475;
+		color: #c90303;
 		transition: all .3s ease;
 	}
 
@@ -137,8 +139,7 @@
 		border-radius: 5px;
 		padding: 20px;
 		margin: 20px;
-		color: rgb(221, 217, 218);
-		background: transparent;
+		background: #01ffc8;
 		text-align: center;
 		display: flex;
 		align-items: center;
@@ -207,7 +208,7 @@
 		transition: .5s;
 	}
 	.contact input {
-		color: #fff;
+		color: #222;
 		margin: 20px;
 		background: transparent;
 		font-size: 20px;
