@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400&family=Kablammo&family=Lato:wght@300;400;900&family=New+Tegomin&family=Open+Sans:ital,wght@0,400;0,500;0,700;1,300&family=Oxanium:wght@200;400;800&family=Poppins:wght@200;400;900&family=Reenie+Beanie&family=Righteous&display=swap');
 
-* {
+/* * {
     margin: 0;
     padding: 0;
     font-family: "Open Sans", sans-serif;
@@ -47,4 +47,57 @@ main p {
     text-indent: 5em;
     text-align: justify;
 }
+ */
+
+ ul {
+
+
+    list-style-type: none;
+
+
+    margin: 0;
+
+
+    padding: 0;
+
+
+    background-color: #f1f1f1;
+
+
+    }
+
+
+li{float:left;}
+
+
+li a {
+
+
+     display: block;
+
+
+     color: #000;
+
+
+     padding: 8px 16px;
+
+
+     text-decoration: none;
+
+
+
+     }
+
+
+li a:hover {
+
+
+               background-color: #555;
+
+
+              color: white;
+
+
+              }
+
 
