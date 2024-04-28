@@ -4,19 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css">
+    <!-- <link rel="stylesheet" href="./style.css"> -->
 </head>
+<style>
+    ::selection {
+    background: salmon;
+ }
+
+ nav ul li {
+    display: inline-block;
+    width: 100px;
+ }
+</style>
 <body>
     <main>
+        <h1>
+            Centro Universitário Uninter
+        </h1>
+        <p>Fundamentos da Programção Web</p>
         <div style="display: flex; align-items: center; justify-content: center;">
-            <ul>
-                <li>
-                    <a href="#">Aula 1</a>
-                </li>
-                <li>
-                    <a href="#">Aula 2</a>
-                </li>
-            </ul>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#">Aula 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Aula 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Aula 3</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </main>
     <!-- <header>
@@ -35,4 +54,27 @@
     </main> -->
     
 </body>
+<script>
+    let x = 20;
+    {
+      let x = 5;  
+    }
+
+    alert(x);
+
+    const dados = ["A", "B", "C", "D", "E"];
+
+    dados.push("A");
+    dados.shift();
+    dados.unshift("E");
+    
+    for(let i = 0; i < dados.length; i++) {
+        console.log(dados[i]);
+    }
+
+    let msg1 = "Olá";
+    let msg2 = "Mundo";
+    let res = msg1 +" "+ msg2;
+    console.log(res);
+</script>
 </html>
