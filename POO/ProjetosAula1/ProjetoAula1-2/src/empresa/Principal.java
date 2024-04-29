@@ -14,7 +14,7 @@ public class Principal {
 		float altura = teclado.nextFloat();
 		float imc = peso / (altura*altura);
 		
-		System.out.println("Seu IMC eh: " + imc);
+		System.out.printf("Seu IMC é: %.2f", imc);
 		
 
 	}

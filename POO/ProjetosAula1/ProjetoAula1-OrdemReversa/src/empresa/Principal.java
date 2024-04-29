@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Principal {
 
 	public static void main(String[] args) {
-		ArrayList<String> nomes = new ArrayList();
+		ArrayList<String> nomes = new ArrayList<String>();
 		Scanner teclado = new Scanner(System.in);
 		String msg;
 		System.out.println("Digite quantos nomes ira inserir:");
@@ -30,7 +30,7 @@ public class Principal {
 	}
 	
 	
-	/* Versão alternativa com o reverse
+	/* Versï¿½o alternativa com o reverse
 	
 	public static void main(String[] args) {
 		ArrayList<String> nomes = new ArrayList();
