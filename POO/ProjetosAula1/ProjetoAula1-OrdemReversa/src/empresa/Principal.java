@@ -27,6 +27,8 @@ public class Principal {
 		for (int i = total-1; i >=0; i--) {
 			System.out.println(nomes.get(i));
 		}
+
+		teclado.close();
 	}
 	
 	
@@ -49,6 +51,8 @@ public class Principal {
 		System.out.println(nomes);
 		Collections.reverse(nomes);
 		System.out.println(nomes);
+
+		teclado.close();
 	}
 	*/
 	
