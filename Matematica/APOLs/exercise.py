@@ -30,6 +30,14 @@
 
 # Qual é a forma hexadecimal associada ao número decimal 12001?
 
+# 16**0 = 1
+# 16**1 = 16
+# 16**2 = 256
+# 16**3 = 4096
+# 16**4 = 65536
+# 16**5 = 1048576
+# 16**6 = 16777216
+
 # Dados a=8,151521 x 103 e b=2,456732 x 103, calcule a+b.
 
 # Qual é a representação na forma binária referente ao decimal 57?
