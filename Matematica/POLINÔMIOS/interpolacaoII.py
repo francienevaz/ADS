@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 # Uma empresa produz carregadores para um determinado modelo de telefone celular e precisa obter a função que relaciona o lucro mensal com o preço de venda dos carregadores. Os custos fixos mensais da empresa correspondem a R$ 50 000,00. Para um preço de venda R$15,00 por unidade, o lucro mensal corresponde a R$ 30 000,00. Quando cada carregador é vendido por R$17,00, o lucro mensal é de R$28 000,00. Obtenha o polinômio interpolar que relaciona o luvro y com o preço de venda x.
 
 # Dados fornecidos
-precos = np.array([15, 17])
-lucros = np.array([30000, 28000])
+precos = np.array([0, 15, 17])
+lucros = np.array([-50000, 30000, 28000])
 
 # Interpolação pelo método de Lagrange
 polinomio = lagrange(precos, lucros)
@@ -16,7 +16,7 @@ print("Polinômio interpolador de Lagrange:")
 print(polinomio)
 
 # Avaliar o polinômio em um conjunto de pontos para plotar
-x_vals = np.linspace(14, 18, 400)
+x_vals = np.linspace(0, 14, 18)
 y_vals = polinomio(x_vals)
 
 # Plotar o polinômio
