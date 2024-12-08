@@ -8,7 +8,7 @@ UNWIND value.data AS tweet
 MERGE (t:Tweet {tweet_id: tweet.id})
 ON CREATE SET t.text = tweet.text, t.created_at = datetime(tweet.created_at), t.conversation_id = tweet.conversation_id
 
-// Setting Tweet Type (Optional)
+// Setting Tweet Type
 FOREACH (ref IN tweet.referenced_tweets |
   FOREACH (_ IN CASE WHEN ref.type = "retweeted" THEN [1] ELSE [] END |
     REMOVE t:Tweet
@@ -28,7 +28,7 @@ FOREACH (ref IN tweet.referenced_tweets |
 MERGE (u:User  {user_id: tweet.author_id})
 MERGE (u)-[:TWEETED]->(t)
 
-// Hashtags (Assuming tweet.entities.hashtags exists)
+// Hashtags
 WITH t, tweet, tweet.entities.hashtags AS hashtags, u
 UNWIND hashtags AS hashtag
 WITH t, u, tweet, apoc.text.replace(apoc.text.clean(hashtag.tag), '[^a-zA-Z0-9]', '') AS cleanedHashtag
@@ -36,7 +36,7 @@ MERGE (h:Hashtag {tag: cleanedHashtag})
 MERGE (t)-[:CONTAIN]->(h)
 MERGE (h)-[:USED_BY]->(u)
 
-// Linking Public Metrics (Preserved tweet data)
+// Linking Public Metrics
 WITH t, tweet
 MERGE (m:PublicMetrics {tweet_id: tweet.id})
 ON CREATE SET m = tweet.public_metrics
