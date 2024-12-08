@@ -4,46 +4,40 @@ WITH value AS file_json
 CALL apoc.load.json(file_json) YIELD value
 UNWIND value.data AS tweet
 
-//Creating tables
+// Creating Tweet Nodes
 MERGE (t:Tweet {tweet_id: tweet.id})
-  ON CREATE SET t.text = tweet.text,
-                t.created_at = datetime(tweet.created_at),
-                t.conversation_id = tweet.conversation_id
+ON CREATE SET t.text = tweet.text, t.created_at = datetime(tweet.created_at), t.conversation_id = tweet.conversation_id
 
-// Table: Retweets
+// Setting Tweet Type (Optional)
 FOREACH (ref IN tweet.referenced_tweets |
   FOREACH (_ IN CASE WHEN ref.type = "retweeted" THEN [1] ELSE [] END |
     REMOVE t:Tweet
     SET t:Retweet
   )
-)
-
-// Table: Asks
-FOREACH (ref IN tweet.referenced_tweets |
   FOREACH (_ IN CASE WHEN ref.type = "replied_to" THEN [1] ELSE [] END |
     REMOVE t:Tweet
     SET t:Ask
   )
-)
-
-// Table: Quotes
-FOREACH (ref IN tweet.referenced_tweets |
   FOREACH (_ IN CASE WHEN ref.type = "quoted" THEN [1] ELSE [] END |
     REMOVE t:Tweet
     SET t:Quote
   )
 )
 
-// Who tweeted?
-MERGE (u:User {user_id: tweet.author_id})
+// User and Tweet Relationship
+MERGE (u:User  {user_id: tweet.author_id})
 MERGE (u)-[:TWEETED]->(t)
 
-// Link hashtags to the tweet and the user
+// Hashtags (Assuming tweet.entities.hashtags exists)
 WITH t, tweet, tweet.entities.hashtags AS hashtags, u
 UNWIND hashtags AS hashtag
-
-WITH t, u, apoc.text.replace(apoc.text.clean(hashtag.tag), '[^a-zA-Z0-9]', '') AS cleanedHashtag
+WITH t, u, tweet, apoc.text.replace(apoc.text.clean(hashtag.tag), '[^a-zA-Z0-9]', '') AS cleanedHashtag
 MERGE (h:Hashtag {tag: cleanedHashtag})
 MERGE (t)-[:CONTAIN]->(h)
-MERGE (u)-[:USED_HASHTAG]->(h);
+MERGE (h)-[:USED_BY]->(u)
 
+// Linking Public Metrics (Preserved tweet data)
+WITH t, tweet
+MERGE (m:PublicMetrics {tweet_id: tweet.id})
+ON CREATE SET m = tweet.public_metrics
+MERGE (t)-[:HAS_PUBLIC_METRICS]->(m)
