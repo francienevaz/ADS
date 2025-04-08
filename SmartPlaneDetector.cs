@@ -1,13 +1,16 @@
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using System.Collections.Generic;
 using UnityEngine.XR.ARSubsystems;
+using System.Collections.Generic;
 
+[RequireComponent(typeof(ARPlaneManager))]
 public class SmartPlaneDetector : MonoBehaviour
 {
     private ARPlaneManager _arPlaneManager;
     private List<ARPlane> _trackedPlanes = new List<ARPlane>();
+    private ARPlane _currentActivePlane;
     private float _similarityThreshold = 0.1f;
+    private float _planeActivationDistance = 0.5f;
 
     void OnEnable()
     {
@@ -18,25 +21,58 @@ public class SmartPlaneDetector : MonoBehaviour
             return;
         }
 
-        // Nova forma correta de assinar eventos na versão 6.0+
-        _arPlaneManager.trackablesChanged += OnTrackablesChanged;
+        // AR FOUNDATION 5.x: correto
+        _arPlaneManager.planesChanged += OnPlanesChanged;
     }
 
     void OnDisable()
     {
         if (_arPlaneManager != null)
-            _arPlaneManager.trackablesChanged -= OnTrackablesChanged;
+            _arPlaneManager.planesChanged -= OnPlanesChanged;
     }
 
-    void OnTrackablesChanged(ARTrackablesChangedEventArgs<ARPlane> args)
+    void Update()
     {
-        // Adiciona novos planos à lista (se forem realmente novos)
+        if (_currentActivePlane != null)
+        {
+            float distanceToPlane = Vector3.Distance(
+                Camera.main.transform.position,
+                _currentActivePlane.transform.position
+            );
+
+            if (distanceToPlane > _planeActivationDistance * 2f)
+            {
+                SetPlaneActive(_currentActivePlane, false);
+                _currentActivePlane = null;
+            }
+        }
+
+        foreach (var tracked in _trackedPlanes)
+        {
+            if (tracked == _currentActivePlane) continue;
+
+            float distance = Vector3.Distance(
+                Camera.main.transform.position,
+                tracked.transform.position
+            );
+
+            if (distance < _planeActivationDistance)
+            {
+                ActivateSinglePlane(tracked);
+                break;
+            }
+        }
+    }
+
+    private void OnPlanesChanged(ARPlanesChangedEventArgs args)
+    {
         foreach (var newPlane in args.added)
         {
             if (!IsPlaneSimilarToTracked(newPlane))
             {
                 _trackedPlanes.Add(newPlane);
                 Debug.Log($"Plano adicionado: {newPlane.trackableId}");
+                SetPlaneActive(newPlane, false);
             }
             else
             {
@@ -44,11 +80,34 @@ public class SmartPlaneDetector : MonoBehaviour
             }
         }
 
-        // Remove planos que foram destruídos pelo sistema
-        foreach (var removedPlane in args.removed)
+        foreach (var removed in args.removed)
         {
-            _trackedPlanes.Remove(removedPlane);
+            _trackedPlanes.Remove(removed);
+            if (_currentActivePlane == removed)
+                _currentActivePlane = null;
         }
+    }
+
+    private void ActivateSinglePlane(ARPlane plane)
+    {
+        foreach (var p in _trackedPlanes)
+        {
+            SetPlaneActive(p, false);
+        }
+
+        SetPlaneActive(plane, true);
+        _currentActivePlane = plane;
+    }
+
+    private void SetPlaneActive(ARPlane plane, bool active)
+    {
+        if (plane == null) return;
+
+        var meshRenderer = plane.GetComponent<MeshRenderer>();
+        if (meshRenderer != null) meshRenderer.enabled = active;
+
+        var lineRenderer = plane.GetComponent<LineRenderer>();
+        if (lineRenderer != null) lineRenderer.enabled = active;
     }
 
     private bool IsPlaneSimilarToTracked(ARPlane plane)
@@ -63,6 +122,11 @@ public class SmartPlaneDetector : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public ARPlane GetCurrentActivePlane()
+    {
+        return _currentActivePlane;
     }
 
     public List<ARPlane> GetTrackedPlanes()

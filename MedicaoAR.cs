@@ -2,108 +2,172 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.XR.ARSubsystems;
 
 public class MedicaoAR : MonoBehaviour
-{   
+{
+    [Header("Referências")]
     public ARRaycastManager raycastManager;
+    public SmartPlaneDetector planeDetector;
     public GameObject initialPointPrefab;
     public GameObject finalPointPrefab;
     public LineRenderer measurementLine;
     public TextMeshProUGUI distanceTextTMP;
-    public SmartPlaneDetector planeDetector; 
+
+    [Header("Configurações")]
+    public float maxTouchDistance = 100f; // Distância máxima em pixels para considerar toque em um plano
+    public float minMeasurementDistance = 0.05f; // Distância mínima entre pontos em metros
+    public float verticalOffset = 0.1f; // Offset vertical para posicionar os pontos acima do plano
 
     private GameObject initialPointInstance;
     private GameObject finalPointInstance;
-    private int pointsPlaced = 0;
+    private bool isMeasuring = false;
+    private bool measurementValid = false;
+
+    void Start()
+    {
+        // Inicializa o texto
+        if (distanceTextTMP != null)
+        {
+            distanceTextTMP.text = "Toque para colocar o primeiro ponto";
+        }
+
+        // Configura escala inicial dos prefabs (opcional)
+        if (initialPointPrefab != null)
+            initialPointPrefab.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        if (finalPointPrefab != null)
+            finalPointPrefab.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+    }
 
     void Update()
     {
-        // Modo otimizado (usa planos já rastreados)
-        if (Input.touchCount > 0 && planeDetector != null)
+        if (Input.touchCount == 0) return;
+
+        Touch touch = Input.GetTouch(0);
+        if (touch.phase != TouchPhase.Began) return;
+
+        // Verifica primeiro os planos já rastreados
+        if (planeDetector != null)
         {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
+            foreach (var plane in planeDetector.GetTrackedPlanes())
             {
-                bool planeFound = false;
-                
-                // Primeiro verifica se tocou em um plano já rastreado
-                foreach (var plane in planeDetector.GetTrackedPlanes())
+                Vector2 screenPoint = Camera.main.WorldToScreenPoint(plane.center);
+                if (Vector2.Distance(touch.position, screenPoint) < maxTouchDistance)
                 {
-                    Vector2 screenPoint = Camera.main.WorldToScreenPoint(plane.center);
-                    if (Vector2.Distance(touch.position, screenPoint) < 100f) // Distância em pixels
-                    {
-                        planeFound = true;
-                        ProcessHit(new Pose(plane.center, plane.transform.rotation));
-                        break;
-                    }
-                }
-
-                // Se não encontrou um plano rastreado, usa raycast tradicional
-                if (!planeFound)
-                {
-                    List<ARRaycastHit> hits = new List<ARRaycastHit>();
-                    if (raycastManager.Raycast(touch.position, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
-                    {
-                        ProcessHit(hits[0].pose);
-                    }
-                    else
-                    {
-                        Debug.Log("❌ Nenhum plano detectado.");
-                    }
+                    ProcessHit(new Pose(plane.center, plane.transform.rotation));
+                    return;
                 }
             }
         }
 
-        // Atualiza a linha e texto de distância
-        UpdateMeasurement();
+        // Fallback para raycast tradicional
+        List<ARRaycastHit> hits = new List<ARRaycastHit>();
+        if (raycastManager.Raycast(touch.position, hits, TrackableType.PlaneWithinPolygon))
+        {
+            ProcessHit(hits[0].pose);
+        }
+        else
+        {
+            Debug.Log("Nenhum plano detectado.");
+            if (distanceTextTMP != null)
+            {
+                distanceTextTMP.text = "Nenhum plano detectado. Aponte para uma superfície plana.";
+            }
+        }
+    }
+
+    private bool IsPointOnActivePlane(Vector3 position)
+    {
+        if (planeDetector == null) return true;
+        
+        var activePlane = planeDetector.GetCurrentActivePlane();
+        if (activePlane == null) return true;
+        
+        // Verifica se o ponto está próximo o suficiente do plano ativo
+        return Vector3.Distance(position, activePlane.center) < 0.3f;
     }
 
     private void ProcessHit(Pose hitPose)
     {
-        Debug.Log("✅ Hit em plano detectado!");
-        
-        if (pointsPlaced == 0)
+        // Ajusta a posição com offset vertical
+        Vector3 adjustedPosition = hitPose.position + Vector3.up * verticalOffset;
+
+        if (!IsPointOnActivePlane(hitPose.position))
         {
+            Debug.Log("Ponto fora do plano ativo");
+            if (distanceTextTMP != null)
+            {
+                distanceTextTMP.text = "Toque no plano ativo para medir";
+            }
+            return;
+        }
+
+        if (!isMeasuring)
+        {
+            // Primeiro ponto
             if (initialPointInstance == null)
             {
-                initialPointInstance = Instantiate(initialPointPrefab, hitPose.position, hitPose.rotation);
+                initialPointInstance = Instantiate(initialPointPrefab, adjustedPosition, hitPose.rotation);
             }
             else
             {
-                initialPointInstance.transform.position = hitPose.position;
+                initialPointInstance.transform.position = adjustedPosition;
             }
-            pointsPlaced = 1;
+            
+            isMeasuring = true;
+            measurementValid = false;
+            
+            if (distanceTextTMP != null)
+            {
+                distanceTextTMP.text = "Toque para colocar o segundo ponto";
+            }
         }
-        else if (pointsPlaced == 1)
+        else
         {
+            // Segundo ponto
+            // Verifica distância mínima
+            float distance = Vector3.Distance(initialPointInstance.transform.position, adjustedPosition);
+            if (distance < minMeasurementDistance)
+            {
+                Debug.Log("Distância muito pequena entre os pontos");
+                if (distanceTextTMP != null)
+                {
+                    distanceTextTMP.text = "Mova mais para colocar o segundo ponto";
+                }
+                return;
+            }
+
             if (finalPointInstance == null)
             {
-                finalPointInstance = Instantiate(finalPointPrefab, hitPose.position, hitPose.rotation);
+                finalPointInstance = Instantiate(finalPointPrefab, adjustedPosition, hitPose.rotation);
             }
             else
             {
-                finalPointInstance.transform.position = hitPose.position;
+                finalPointInstance.transform.position = adjustedPosition;
             }
-            pointsPlaced = 2;
-        }
-        else if (pointsPlaced == 2)
-        {
-            // Reset para nova medição
-            Destroy(initialPointInstance);
-            Destroy(finalPointInstance);
-            pointsPlaced = 0;
+            
+            isMeasuring = false;
+            measurementValid = true;
+            UpdateMeasurement();
         }
     }
 
     private void UpdateMeasurement()
     {
-        if (pointsPlaced == 2 && initialPointInstance != null && finalPointInstance != null)
+        if (measurementValid && initialPointInstance != null && finalPointInstance != null)
         {
+            // Atualiza a linha
+            measurementLine.positionCount = 2;
             measurementLine.SetPosition(0, initialPointInstance.transform.position);
             measurementLine.SetPosition(1, finalPointInstance.transform.position);
 
-            float distance = Vector3.Distance(initialPointInstance.transform.position, finalPointInstance.transform.position);
+            // Calcula distância
+            float distance = Vector3.Distance(
+                initialPointInstance.transform.position,
+                finalPointInstance.transform.position
+            );
+
+            // Converte para cm se menor que 1m
             string unit = "m";
             if (distance < 1f)
             {
@@ -113,18 +177,37 @@ public class MedicaoAR : MonoBehaviour
 
             if (distanceTextTMP != null)
             {
-                distanceTextTMP.text = $"{distance:F2} {unit}";
+                distanceTextTMP.text = $"Distância: {distance:F2} {unit}";
             }
         }
-        else if (pointsPlaced < 2 && measurementLine != null)
+        else
         {
-            measurementLine.SetPosition(0, Vector3.zero);
-            measurementLine.SetPosition(1, Vector3.zero);
-
-            if (distanceTextTMP != null)
-            {
-                distanceTextTMP.text = "";
-            }
+            // Reseta a linha se não houver medição válida
+            measurementLine.positionCount = 0;
         }
+    }
+
+    public void ResetMeasurement()
+    {
+        if (initialPointInstance != null) Destroy(initialPointInstance);
+        if (finalPointInstance != null) Destroy(finalPointInstance);
+        
+        measurementLine.positionCount = 0;
+        isMeasuring = false;
+        measurementValid = false;
+        
+        if (distanceTextTMP != null)
+        {
+            distanceTextTMP.text = "Toque para colocar o primeiro ponto";
+        }
+    }
+
+    // Método para ajustar a escala dos pontos (pode ser chamado externamente se necessário)
+    public void SetPointsScale(float scale)
+    {
+        if (initialPointInstance != null)
+            initialPointInstance.transform.localScale = new Vector3(scale, scale, scale);
+        if (finalPointInstance != null)
+            finalPointInstance.transform.localScale = new Vector3(scale, scale, scale);
     }
 }
