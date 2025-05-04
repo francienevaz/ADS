@@ -10,6 +10,7 @@ public class Task {
     private Long id;
 
     private String name;
+    private Number ru;
     private LocalDate dueDate;
     private String responsible;
 
@@ -28,6 +29,14 @@ public class Task {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Number getRU() {
+        return ru;
+    }
+
+    public void setRU(Number ru) {
+        this.ru = ru;
     }
 
     public LocalDate getDueDate() {
