@@ -3,6 +3,8 @@ package com.tasks.Tasks.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Task {
     @Id
@@ -10,9 +12,9 @@ public class Task {
     private Long id;
 
     private String name;
-    private Number ru;
-    private LocalDate dueDate;
     private String responsible;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dueDate;
 
     // Getters and Setters
     public Long getId() {
@@ -31,12 +33,12 @@ public class Task {
         this.name = name;
     }
 
-    public Number getRU() {
-        return ru;
+    public String getResponsible() {
+        return responsible;
     }
 
-    public void setRU(Number ru) {
-        this.ru = ru;
+    public void setResponsible(String responsible) {
+        this.responsible = responsible;
     }
 
     public LocalDate getDueDate() {
@@ -45,13 +47,5 @@ public class Task {
 
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
-    }
-
-    public String getResponsible() {
-        return responsible;
-    }
-
-    public void setResponsible(String responsible) {
-        this.responsible = responsible;
     }
 }

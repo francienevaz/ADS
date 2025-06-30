@@ -20,6 +20,12 @@ public class TaskController {
         return repository.save(task);
     }
 
+    @PostMapping("/batch")
+    public ResponseEntity<List<Task>> createTasks(@RequestBody List<Task> tasks) {
+        List<Task> savedTasks = repository.saveAll(tasks);
+        return ResponseEntity.ok(savedTasks);
+    }
+
     @GetMapping
     public List<Task> getAllTasks() {
         return repository.findAll();
@@ -36,8 +42,8 @@ public class TaskController {
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
         return repository.findById(id).map(task -> {
             task.setName(updatedTask.getName());
-            task.setDueDate(updatedTask.getDueDate());
             task.setResponsible(updatedTask.getResponsible());
+            task.setDueDate(updatedTask.getDueDate());
             return ResponseEntity.ok(repository.save(task));
         }).orElse(ResponseEntity.notFound().build());
     }
